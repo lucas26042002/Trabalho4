@@ -1,0 +1,46 @@
+int order (const void* g, const void* h) {
+    const int* a = *(const int**)g;
+    const int* b = *(const int**)h;
+    if (a[0] == b[0]) {
+        return 0;
+    }
+    return a[0] < b[0] ? -1 : 1;
+}
+
+ int max(int a, int b) {
+    return (a > b) ? a : b;
+}
+int** merge(int** intervals, int intervalsSize, int* intervalsColSize, int* returnSize, int** returnColumnSizes) {
+    const int n = intervalsSize;
+
+    qsort(intervals, intervalsSize, sizeof(int*), order);
+
+    int** result = (int**)calloc(n, sizeof(int*));
+    *returnColumnSizes = (int*)calloc(n, sizeof(int));
+    for (int i = 0; i < n; i++) {
+        result[i] = (int*)calloc(2, sizeof(int));
+        (*returnColumnSizes)[i] = 2;
+        for (int j = 0; j < 2; j++) {
+            result[i][j] = -1;
+        }
+    }
+    
+    result[0][0] = intervals[0][0];
+    
+    result[0][1] = intervals[0][1];
+
+    int round = 0, format = 1;
+    for (int i = 1; i < n; i++) {
+        if (result[round][1] < intervals[i][0]) {
+            result[format][0] = intervals[i][0];
+            result[format][1] = intervals[i][1];
+            round = format;
+            format++;
+        }
+        else result[round][1] =  max(result[round][1], intervals[i][1]);
+    }
+
+    *returnSize = format;
+    
+return result;
+}
