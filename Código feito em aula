@@ -1,0 +1,54 @@
+// Lucas Schneider Ludwig M1
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int tam[][];,starti=0,endi=0,column[],line[],start_column,start_line;
+
+int** merge(int** intervals, int intervalsSize, int* intervalsColSize, int* returnSize, int** returnColumnSizes){{
+
+intervals[i]=[starti,endi];
+start_column=0;
+start_line=0;
+
+scanf("%d",&tam);
+for(i=0;i<tam;i++){
+
+scanf("%d",&column[]);
+scanf("%d",&line[])
+}
+     for(int i=0;i<intervalsSize;i++){
+         for(int j=0;j<column;j++){
+             start_column[j]=starti;
+             starti=column;
+            for(int k=0;k<line;k++){
+             start_line[k]=starti;
+             starti=line;
+            
+        do{
+         
+          if(line[k]<column[j]){
+              line[k]=start_line[];
+              column[j]=star_column[] +1;
+              ReturnColumnSizes=start_column;
+
+          }
+          else{
+            line[k]=starti;
+            column[j]=endi;
+          }
+            
+     
+        }while(line=/0 && column=/0);
+        intervalsSize[k][j]=[starti,endi];
+        returnSize=intervalsSize;
+     
+          
+         }
+         }
+         return returnSize;
+     }
+}
+}
+
+             
