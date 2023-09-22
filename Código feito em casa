@@ -1,7 +1,8 @@
+//comparação utilizada qsortpara ordenar os intervalos com base no primeiro elemento de cada intervalo.
 int order (const void* g, const void* h) {
-    const int* a = *(const int**)g;
-    const int* b = *(const int**)h;
-    if (a[0] == b[0]) {
+    const int* a = *(const int**)g; // Isso é feito para acessar os elementos do intervalo na função de comparação.
+    const int* b = *(const int**)h; // Converte o ponteiro gpara um ponteiro para um ponteiro de inteiros e depois 
+    if (a[0] == b[0]) {             // para um ponteiro de inteiros constantes a
         return 0;
     }
     return a[0] < b[0] ? -1 : 1;
@@ -14,14 +15,17 @@ int** merge(int** intervals, int intervalsSize, int* intervalsColSize, int* retu
     const int n = intervalsSize;
 
     qsort(intervals, intervalsSize, sizeof(int*), order);
+// Usa a função qsortda biblioteca padrão C para ordenar os intervalos com base na função de comparação order.
 
-    int** result = (int**)calloc(n, sizeof(int*));
-    *returnColumnSizes = (int*)calloc(n, sizeof(int));
+    int** result = (int**)calloc(n, sizeof(int*)); // Aloca dinamicamente um array de ponteiros de inteiros chamados resultcom tamanho n.
+    *returnColumnSizes = (int*)calloc(n, sizeof(int)); // Aloca dinamicamente um array de inteiros para armazenar os tamanhos de coluna dos intervalos mesclados e o atribuído ao ponteiro returnColumnSizes.
     for (int i = 0; i < n; i++) {
         result[i] = (int*)calloc(2, sizeof(int));
         (*returnColumnSizes)[i] = 2;
         for (int j = 0; j < 2; j++) {
-            result[i][j] = -1;
+            result[i][j] = -1;  // Um loop foré usado para inicializar os elementos do array resultcom valores iniciais.
+                            // inicializam o primeiro intervalo de resultcom os valores do primeiro intervalo de intervals.
+
         }
     }
     
@@ -31,9 +35,9 @@ int** merge(int** intervals, int intervalsSize, int* intervalsColSize, int* retu
 
     int round = 0, format = 1;
     for (int i = 1; i < n; i++) {
-        if (result[round][1] < intervals[i][0]) {
-            result[format][0] = intervals[i][0];
-            result[format][1] = intervals[i][1];
+        if (result[round][1] < intervals[i][0]) { // Verifique se o intervalo atual em resultnão se sobrepõe ao intervalo atual em intervals.
+            result[format][0] = intervals[i][0];  // Se não houver sobreposição, um novo intervalo é adicionado a resulte roundé atualizado para apontar para o novo intervalo.
+            result[format][1] = intervals[i][1];  // Caso contrário, os intervalos se sobrepõem, e o código mescla os intervalos atuais e existentes em resultatualizando o segundo valor do intervalo existente.
             round = format;
             format++;
         }
